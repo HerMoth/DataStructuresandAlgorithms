@@ -1,0 +1,125 @@
+d={} #creates empty dictionary
+L='ob la di ob la da la la la la'.split() #splits the string into a list of words
+for i in range (len(L)-1):#iterates through the list
+    if L[i] in d: #if the word is already in the dictionary
+        d[L[i]].append(L[i+1]) #appends the next word to the list of values
+    else: #if the word is not in the dictionary
+        d[L[i]]=[L[i+1]] #creates a new key with the next word as the value
+print(d) #prints the dictionary
+#after running the code, the dictionary is {'ob': ['la', 'la'], 'la': ['di', 'la', 'la', 'la']}
+
+
+def food(d1, d2):
+    rd = {} #creates an empty dictionary
+    for k in d1: #iterates through the keys in the first dictionary
+        if k in d2: #if the key is in both dictionaries
+            rd[k] = (d1[k], d2[k]) #creates a new key in the new dictionary with the values from both dictionaries
+    return rd #returns the new dictionary
+
+food({'a': 'apple', 'b':'banana'},{'b':'bee', 'c':'cat','a':'ant'})
+# returns {'a': ('apple', 'ant'), 'b': ('banana', 'bee')}   
+
+#3: Consider the following  alternatives for defining a sequence of values based on a linear coefficient m,b and integer N:
+""" ns= [m*i+b for x in range(N)] #list comprehension
+#ns=(m*i+b for x in range(N)) #generator expression
+# in which case would you use the list comprehension and in which case would you use the generator expression? Explain your answer.
+#I would use the list comprehension when I want to store the values in a list and use them later. 
+# I would use the generator expression when I want to use the values one at a time and not store them in memory.
+# A list comprehension is more memory intensive than a generator expression because it stores all the values in memory at once.
+# I would used a list comprehension when i  plan on iterating over  the sequence multiple times"""
+
+#4:Consider the following code: that implements N "riffle" shuffles of a list of M elements:
+def my_riffle(lst, N):
+    M = len(lst)
+    pre_riffle = lst
+    for _ in range(N):
+        riffled = []
+        for i in range(M//2):
+            riffled.append(pre_riffle[i])
+            riffled.append(pre_riffle[i+M//2+i])
+        return riffled
+    #what is the runtime complexity of my_riffle? Explain your answer.
+    """The runtime complexity of my_riffle is O(N*M)
+    because the outer loop runs N times and the inner loop runs M//2 times.
+    Therefore, the total number of iterations is N*M//2, which is O(N*M)."""
+    
+#5 What is the worst-case complexity of inserting(not replacing) an element at a specific index location into an array-based list 
+#  of N Elements? Explain your answer.
+"""O(N) it would take O(N) time to insert an element at a specific index location into an array-based list of N elements.
+and the worst case scenario is when the element is inserted at the beginning of the list,
+which would require shifting all the other elements to the right by one position.
+Therefore, the time complexity of inserting an element at a specific index location into an array-based list of N elements is O(N)."""
+
+#6: Implement the function consolidate,
+#which accepts a variable number of iterables as parameters, and
+#return a dictionary whose keys consist of values found in the argument iterables,
+#which map to numbers indicating how many times each value appears across all the iterables.
+# consolidate([1,2,3],[1,1,1],[2,4],[1]) returns {1: 5, 2: 2, 3: 1, 4: 1}
+# consolidate('abracadabra', 'abacus', 'dad') return {'a':8,'b':3,'c':2, 'd':3, 'r':2, 's':1, 'u':1}
+# consolidate(range(5), range(1,4),range(1,6,2) returns {0: 1, 1: 3, 2: 3, 3: 2, 4: 1, 5: 1}
+
+def consolidate(*argv):
+    d = {} #creates an empty dictionary
+    for _ in argv:
+        for v in argv:
+            if v is not d:
+                d[v] = 0
+                d[v] += 1
+    return d
+
+#7:Write python code or pseudocode for this algorithm:
+""" BubbleSort can be describe as follows: Consider sorting (in increasing order) n numbers by comparing the 1st and 2nd number,
+and swapping them if they are out of order, then comparing the 2nd and 3rd number  and swapping them if necessary,..., comparing the (n-1)st and nth
+number and swapping them if necessary. Then do this again for the n-1 numbers, then for the first n-2 numbers, etc. When no exchanges are required on 
+pass  the file is sorted."""
+
+
+def BubbleSort(arr): #function that takes a list as an argument
+    n = len(arr) #gets the length of the list
+    for i in range(n-1): #iterates through the list
+        swapped = False #creates a variable to keep track of whether any swaps were made
+        for j in range(0, n-i-1): #iterates through the list
+            if arr[j] > arr[j+1]:#compares the current element with the next element
+                arr[j], arr[j+1]= arr[j+1], arr[j] #swaps the elements if they are out of order
+                swapped = True
+            if not swapped:
+                break;
+# Give the best-case and worst-case time complexity of BubbleSort in Big-O notation.
+""" Best-case time complexity of BubbleSort is O(n)- when the list is already sorted, and no swaps are needed.
+worst-case time complexity of BubbleSort is O(n^2).- when the list is sorted in reverse order, and the maximum number of swaps are needed."""
+
+#8: The ArrayList  has two instance attributes:
+def __init__(self):
+    self.data = np.empty(1,dtype=object) #creates an empty numpy array with one element
+    self.size= 0
+
+#What if we kept another instance attribute, the index location of the current maximum element in the list
+# (use index-1 if list is empty)?
+# Explain what changes you would need to make to the below methods to add this functionality and
+#how would you change the time complexity of the methods? 
+
+def __init__(self):
+    #initialize the maximum index to -1
+    pass
+def __setitem__(self, idx, value):
+    #if new value is  new maximum, update the maximum index or
+    #if the smallest value walk the list to find the new maximum index
+    """Worst case time complexity of __setitem__ is O(n) 
+    because it may need to walk the list to find the new maximum index."""
+    pass
+
+def __delitem__(self, idx):
+    #if  the maximum index is deleted, walk the list to find the new maximum index
+    """Worst case time complexity of __delitem__ is O(n)
+    because it may need to walk the list to find the new maximum index."""
+    pass
+
+def append(self, value):
+    #If the new value is the new maximum, update the maximum index
+    """Worst case time complexity of append is O(1)
+        because it does not need to walk the list to find the new maximum index."""
+    pass
+
+def max(self):
+    """should return the maximum index"""
+    return self.data[max.Index]
